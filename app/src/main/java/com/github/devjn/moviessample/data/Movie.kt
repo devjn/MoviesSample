@@ -8,7 +8,8 @@ package com.github.devjn.moviessample.data
  */
 data class MovieData(var data: List<Movie>? = null)
 
-data class Movie(val title: String,
+data class Movie(val id : Long,
+                 val title: String,
                  val year: String,
                  val genre: String,
                  val poster: String)

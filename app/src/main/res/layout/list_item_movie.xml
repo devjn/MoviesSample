@@ -10,27 +10,30 @@
             type="com.github.devjn.moviessample.data.Movie"/>
     </data>
 
-    <FrameLayout
-        android:layout_width="96dp"
-        android:layout_height="180dp">
+    <com.github.devjn.moviessample.widgets.AspectRatioView
+        app:aspectRatio="0.665"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
 
         <ImageView
             android:id="@+id/image"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:scaleType="centerCrop"
+            android:background="@color/dark_gray"
+            android:scaleType="centerInside"
             app:loadImage="@{movie.poster}"
             tools:src="@color/colorAccent"/>
 
         <TextView
-            style="@style/TextAppearance.AppCompat.Inverse"
             android:id="@+id/txt_genre"
+            style="@style/TextAppearance.AppCompat.Inverse"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="top|end"
-            android:layout_margin="8dp"
+            android:background="@color/alpha_black"
+            android:padding="@dimen/spacing_micro"
             android:text="@{movie.genre}"
             tools:text="GENRE"/>
 
-    </FrameLayout>
+    </com.github.devjn.moviessample.widgets.AspectRatioView>
 </layout>
