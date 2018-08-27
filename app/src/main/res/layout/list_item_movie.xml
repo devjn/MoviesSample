@@ -11,9 +11,9 @@
     </data>
 
     <com.github.devjn.moviessample.widgets.AspectRatioView
-        app:aspectRatio="0.665"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        app:aspectRatio="0.665">
 
         <ImageView
             android:id="@+id/image"
@@ -21,7 +21,8 @@
             android:layout_height="match_parent"
             android:background="@color/dark_gray"
             android:scaleType="centerInside"
-            app:loadImage="@{movie.poster}"
+            app:imageUrl="@{movie.poster}"
+            app:textView="@{title}"
             tools:src="@color/colorAccent"/>
 
         <TextView
@@ -34,6 +35,16 @@
             android:padding="@dimen/spacing_micro"
             android:text="@{movie.genre}"
             tools:text="GENRE"/>
+
+        <TextView
+            android:id="@+id/title"
+            style="@style/TextAppearance.AppCompat.Title.Inverse"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom|center_horizontal"
+            android:padding="@dimen/spacing_micro"
+            android:text="@{movie.title}"
+            tools:text="Title"/>
 
     </com.github.devjn.moviessample.widgets.AspectRatioView>
 </layout>
