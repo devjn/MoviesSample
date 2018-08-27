@@ -24,8 +24,6 @@ object MovieAPI {
 
     private val okHttp: OkHttpClient
 
-    val movieService by lazy { createService(MovieService::class.java) }
-
     init {
         val httpCacheDirectory = File(App.appContext.cacheDir, "responses")
         val cacheSize = 10L * 1024 * 1024 // 10 MiB

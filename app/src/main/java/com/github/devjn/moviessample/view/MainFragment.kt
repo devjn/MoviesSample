@@ -17,13 +17,13 @@ import androidx.recyclerview.widget.RecyclerView
 import com.arlib.floatingsearchview.FloatingSearchView
 import com.arlib.floatingsearchview.suggestions.model.SearchSuggestion
 import com.github.devjn.moviessample.App
-import com.github.devjn.moviessample.GridSpacingItemDecoration
 import com.github.devjn.moviessample.R
 import com.github.devjn.moviessample.data.Movie
 import com.github.devjn.moviessample.databinding.ListItemMovieBinding
 import com.github.devjn.moviessample.databinding.MainFragmentBinding
 import com.github.devjn.moviessample.utils.AndroidUtils
 import com.github.devjn.moviessample.viewmodel.MainViewModel
+import com.github.devjn.moviessample.widgets.GridSpacingItemDecoration
 
 
 class MainFragment : Fragment() {
@@ -32,7 +32,7 @@ class MainFragment : Fragment() {
         fun newInstance() = MainFragment()
     }
 
-    private val viewModel by lazy { ViewModelProviders.of(this).get(MainViewModel::class.java) }
+    internal val viewModel by lazy { ViewModelProviders.of(this).get(MainViewModel::class.java) }
     private lateinit var binding: MainFragmentBinding;
     private lateinit var adapter: Adapter
 
@@ -48,6 +48,7 @@ class MainFragment : Fragment() {
         }
         adapter = Adapter()
         binding.list.adapter = adapter
+        binding.swipetorefresh.setOnRefreshListener { viewModel.doRequest() }
         setupSearchView()
         return binding.root
     }
@@ -56,11 +57,11 @@ class MainFragment : Fragment() {
         super.onActivityCreated(savedInstanceState)
         viewModel.data.observe(this, Observer { data ->
             data?.let { adapter.data = it }
+            binding.swipetorefresh.isRefreshing = false
         })
     }
 
     private fun setupSearchView() {
-
         binding.searchView.setOnSearchListener(object : FloatingSearchView.OnSearchListener {
             override fun onSuggestionClicked(searchSuggestion: SearchSuggestion) {
                 viewModel.search(searchSuggestion.body)
@@ -72,20 +73,10 @@ class MainFragment : Fragment() {
             }
         })
 
-        binding.searchView.setOnFocusChangeListener(object : FloatingSearchView.OnFocusChangeListener {
-            override fun onFocus() {}
-
-            override fun onFocusCleared() {
-                //set the title of the bar so that when focus is returned a new query begins
-                binding.searchView.setSearchText(viewModel.lastQuery)
-            }
-        })
-
         binding.searchView.setOnBindSuggestionCallback { _, leftIcon, _, _, _ ->
             leftIcon.setImageDrawable(ResourcesCompat.getDrawable(resources, R.drawable.ic_history_black_24dp, null))
             leftIcon.alpha = .36f
         }
-
     }
 
     private inner class Adapter() : RecyclerView.Adapter<Adapter.SimpleViewHolder>() {

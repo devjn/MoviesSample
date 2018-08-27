@@ -1,4 +1,4 @@
-package com.github.devjn.moviessample
+package com.github.devjn.moviessample.widgets
 
 import android.graphics.Rect
 import android.view.View

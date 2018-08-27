@@ -7,7 +7,6 @@ import android.util.Log
 import androidx.appcompat.app.AppCompatDelegate
 
 
-
 /**
  * Created by @author Jahongir on 23-Aug-18
  * devjn@jn-arts.com
@@ -20,7 +19,7 @@ class App : Application() {
         const val TAG = "MoviesSample"
 
         lateinit var appContext: Context
-            private set
+//            private set
 
         fun isNetworkAvailable(): Boolean {
             try {
@@ -40,6 +39,5 @@ class App : Application() {
         appContext = applicationContext
         AppCompatDelegate.setCompatVectorFromResourcesEnabled(true)
     }
-
 
 }
